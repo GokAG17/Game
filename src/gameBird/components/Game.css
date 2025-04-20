@@ -1,0 +1,156 @@
+/* Game Container */
+.birdgame-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: url("/bird_images/Background.jpg") repeat-x center center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Arial", sans-serif;
+  overflow: hidden;
+  animation: scrollBackground 30s linear infinite;
+}
+
+/* Infinite Background Scroll */
+@keyframes scrollBackground {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -2408px; /* Adjust based on actual background width */
+  }
+}
+
+/* Character Styling */
+.birdcharacter {
+  position: absolute;
+  z-index: 10;
+  transition: top 0.1s ease, left 0.1s ease;
+}
+
+/* Smooth Jump Effect */
+@keyframes jumpSmooth {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-60px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.birdcharacter.jump {
+  animation: jumpSmooth 0.5s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+}
+
+/* Emoji Styling */
+.birdemoji {
+  position: absolute;
+  font-size: 3rem;
+  z-index: 5;
+  pointer-events: none;
+  transition: left 0.1s linear;
+}
+
+/* Obstacle Styling */
+.birdobstacle {
+  position: absolute;
+  object-fit: cover;
+  z-index: 3;
+  transition: left 0.1s linear;
+}
+
+/* Game Info Panel */
+.birdgame-info {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  display: flex;
+  gap: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  z-index: 15;
+}
+
+/* Loading Screen */
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  z-index: 9999;
+  text-align: center;
+}
+
+.loading-spinner {
+  border: 8px solid rgba(255, 255, 255, 0.2);
+  border-top: 8px solid #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.birdgame-buttons {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  z-index: 999;
+}
+
+.circle-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.circle-button.active {
+  background-color: #ff1818;
+  transform: scale(1.1);
+}
+
+.circle-button:hover {
+  background-color: #388e3c;
+}

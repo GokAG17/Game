@@ -1,0 +1,173 @@
+/* Global Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+* {
+  user-select: none;
+}
+
+
+/* Main Container */
+.start-container {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: slideDown 1s ease forwards;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-image: url("/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+/* Animation for container */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typewriter effect */
+.start-typewriter {
+  font-size: 1.5rem;
+  font-family:'Orbitron';
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #ffffff;
+  animation: fadeIn 1.5s ease-in forwards;
+}
+
+/* Animation for text */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Loader Container */
+.start-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+}
+
+/* Cards Container */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Individual Card */
+.start-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  width: 250px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+/* Card Hover Effect */
+.start-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Active Effect */
+.start-active {
+  border: 5px solid #ffeb3b;
+  box-shadow: 0 0 15px 5px rgba(255, 235, 59, 0.7),
+    0 0 30px 10px rgba(255, 235, 59, 0.5);
+}
+
+/* Card Title */
+.start-card h2 {
+  font-size: 1.5em;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: white;
+}
+
+/* Card Description */
+.start-card p {
+  margin: 0;
+  font-size: 50px;
+  color: #ddd;
+  text-align: center;
+  line-height: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .start-typewriter {
+    font-size: 1.3rem;
+  }
+
+  .start-card {
+    width: 220px;
+    height: 170px;
+  }
+}
+
+@media (max-width: 768px) {
+  .start-typewriter {
+    font-size: 1.2rem;
+  }
+
+  .start-card {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .cards-container {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .start-typewriter {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .start-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
