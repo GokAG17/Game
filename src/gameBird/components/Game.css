@@ -28,8 +28,8 @@
   position: absolute;
   z-index: 10;
   transition: top 0.1s ease, left 0.1s ease;
-  width: 80px; /* Adjusted character size */
-  height: 80px; /* Adjusted character size */
+  width: 120px; /* Adjusted character size */
+  height: 100px; /* Adjusted character size */
 }
 
 /* Smooth Jump Effect */

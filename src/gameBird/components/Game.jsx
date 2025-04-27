@@ -227,8 +227,8 @@ const Game = () => {
           style={{
             left: characterX,
             top: characterY,
-            border: isInvincible ? "3px solid gold" : "none",
-            borderRadius: "10px",
+            border: isInvincible ? "5px solid gold" : "none",
+            borderRadius: "50px",
             boxShadow: isInvincible ? "0 0 20px gold" : "none",
           }}
         >

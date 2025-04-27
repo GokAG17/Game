@@ -1,44 +1,19 @@
-import { useRef,useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const EndGamePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { score, game = "ninja" } = location.state || {};
-
   const sentRef = useRef(false);
 
-  // useEffect(() => {
-  //   if (sentRef.current) return;
-  //   sentRef.current = true;
-
-  //   const sendScore = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:5000/api/gamescore", {
-  //         method: "POST",
-  //         credentials: "include",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           game_id: game,
-  //           score,
-  //           date: new Date().toISOString().split("T")[0],
-  //         }),
-  //       });
-
-  //       const result = await response.json();
-  //       console.log("✅ Score sent:", result);
-  //     } catch (err) {
-  //       console.error("❌ Error sending score:", err);
-  //     }
-  //   };
-
-  //   sendScore();
-  // }, [game, score]);
+  const handleGlobalClick = () => {
+    navigate("/game");
+  };
 
   return (
     <div
+      onClick={handleGlobalClick}
       style={{
         position: "fixed",
         top: 0,
@@ -52,9 +27,11 @@ const EndGamePage = () => {
         alignItems: "center",
         textAlign: "center",
         overflow: "hidden",
+        cursor: "pointer", // show pointer to make it look clickable
       }}
     >
       <div
+        onClick={(e) => e.stopPropagation()} // prevent navigating when clicking inside the card
         style={{
           background: "rgba(255, 255, 255, 0.1)",
           backdropFilter: "blur(10px)",
@@ -86,7 +63,10 @@ const EndGamePage = () => {
       </div>
 
       <button
-        onClick={() => navigate("/game")}
+        onClick={(e) => {
+          e.stopPropagation(); // prevent button click from also triggering page click
+          navigate("/game");
+        }}
         style={{
           marginTop: "30px",
           padding: "15px 30px",

@@ -1,87 +1,109 @@
 /* Disable all text selection globally */
 * {
   user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Game container styling */
+/* Game container */
 .flightgame {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-image: url("/plane_images/Background.jpg");
+  background-image: url("/plane_images/BackgroundImg.jpg");
   background-size: cover;
-  background-position: 50% center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: repeat-x;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   color: white;
-  font-family: "Arial", sans-serif;
+  font-family: "Press Start 2P", cursive; /* Cool pixel game font */
   transition: background-position 0.1s ease;
+  animation: backgroundScroll 20s linear infinite;
 }
 
-/* Plane styles */
+/* Background scroll animation */
+@keyframes backgroundScroll {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: 200%;
+  }
+}
+
+/* Plane styling */
 .player-container {
   position: absolute;
   transition: transform 0.1s ease-in-out;
 }
 
-.player-container.left {
-  transform: scaleX(-1);
-}
-
-.player-container.right {
-  transform: scaleX(1);
-}
-
 .player-container img {
-  width: 100px;
+  width: 120px;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
+  filter: drop-shadow(0px 0px 10px rgba(0, 255, 255, 0.7));
 }
 
 /* Bullet styling */
 .bullet {
   position: absolute;
-  width: 10px;
-  height: 20px;
-  background-color: red;
+  width: 12px;
+  height: 6px;
+  background: linear-gradient(90deg, rgb(97, 18, 255), rgb(17, 101, 228),rgb(0, 255, 174)d);
   border-radius: 50%;
-  transition: top 0.1s linear;
+  box-shadow: 0 0 10px 2px rgb(17, 0, 255);
+  animation: bulletMove 1s linear forwards;
 }
 
-.bullet-active {
-  animation: moveBullet 1s linear infinite;
-}
-
-@keyframes moveBullet {
+@keyframes bulletMove {
   0% {
-    top: 100%;
+    transform: translateX(0);
+    opacity: 1;
   }
   100% {
-    top: 0%;
+    transform: translateX(500px);
+    opacity: 0.5;
   }
 }
 
-/* Score and game over UI */
+/* Enemy styling */
+.enemy {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+  animation: enemyFly 3s linear infinite;
+}
+
+@keyframes enemyFly {
+  0% {
+    transform: scaleX(-1) translateX(0);
+  }
+  100% {
+    transform: scaleX(-1) translateX(-20px);
+  }
+}
+
+/* Score styling */
 .score-plane {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #00ffff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00ffff;
+  backdrop-filter: blur(4px);
 }
 
+/* Game Over text */
 .game-over {
   position: absolute;
   top: 50%;
@@ -89,52 +111,51 @@
   transform: translate(-50%, -50%);
   font-size: 3rem;
   font-weight: bold;
-  color: red;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 12px;
-  animation: fadeOut 2s forwards;
+  color: #ff4d4d;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 25px 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px red;
+  animation: gameOverPop 1.5s ease-out forwards;
 }
 
-@keyframes fadeOut {
+@keyframes gameOverPop {
   0% {
-    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
   }
   100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
   }
 }
 
-/* Button styling */
+/* Buttons (optional if you add retry/exit) */
 button {
-  background-color: #f44336;
+  background: linear-gradient(90deg, #ff6b6b, #ff4757);
   color: white;
-  padding: 10px 20px;
+  font-size: 1.2rem;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
-  background-color: #d32f2f;
+  background: linear-gradient(90deg, #ff4757, #ff6b6b);
+  transform: scale(1.05);
 }
 
-/* Responsive design */
+/* Responsive design tweaks */
 @media (max-width: 768px) {
   .score-plane {
     font-size: 1.5rem;
+    padding: 10px 16px;
   }
-
-  .game-over {
-    font-size: 2rem;
-    padding: 10px;
-  }
-
   .player-container img {
-    width: 70px;
+    width: 80px;
   }
 }
 
@@ -142,13 +163,7 @@ button:hover {
   .score-plane {
     font-size: 1.2rem;
   }
-
-  .game-over {
-    font-size: 1.5rem;
-    padding: 8px;
-  }
-
   .player-container img {
-    width: 50px;
+    width: 60px;
   }
 }
