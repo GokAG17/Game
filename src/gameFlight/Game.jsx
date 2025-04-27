@@ -131,7 +131,7 @@ const Game = () => {
           navigate("/plane-end", {
             state: {
               finalScore: score,
-              game: "plane", // ✅ identifying the game
+              game: "plane",
             },
           });
         }, 2000);

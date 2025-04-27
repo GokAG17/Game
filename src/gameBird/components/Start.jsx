@@ -19,7 +19,7 @@ const Start = () => {
   return (
     <div className="birdstart-container">
       <div className="birdoverlay">
-        <h1>Fairy Quest</h1>
+        <h1>Bird Thrust</h1>
         <button onClick={() => navigate("/bird-instructions")}>Start Game</button>
       </div>
     </div>

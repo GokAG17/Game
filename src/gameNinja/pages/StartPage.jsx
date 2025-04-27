@@ -1,7 +1,22 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const StartPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      navigate("/ninja-instructions");
+    };
+
+    // Attach event listener
+    window.addEventListener("click", handleGlobalClick);
+
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener("click", handleGlobalClick);
+    };
+  }, [navigate]);
 
   return (
     <div
@@ -43,7 +58,6 @@ const StartPage = () => {
 
       {/* Start Button */}
       <button
-        onClick={() => navigate("/ninja-instructions")}
         style={{
           padding: "15px 30px",
           fontSize: "1.8rem",

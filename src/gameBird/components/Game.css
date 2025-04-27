@@ -28,6 +28,8 @@
   position: absolute;
   z-index: 10;
   transition: top 0.1s ease, left 0.1s ease;
+  width: 80px; /* Adjusted character size */
+  height: 80px; /* Adjusted character size */
 }
 
 /* Smooth Jump Effect */
@@ -54,6 +56,9 @@
   z-index: 5;
   pointer-events: none;
   transition: left 0.1s linear;
+  width: 60px; /* Adjusted emoji size */
+  height: 60px; /* Adjusted emoji size */
+  object-fit: contain;
 }
 
 /* Obstacle Styling */
@@ -62,6 +67,46 @@
   object-fit: cover;
   z-index: 3;
   transition: left 0.1s linear;
+  width: 100px; /* Adjusted obstacle width */
+  height: 300px; /* Adjusted obstacle height */
+  /* Add magnet effect */
+  transition: left 0.1s linear, top 0.1s linear;
+}
+
+/* Magnet Power-up Effect */
+.magnet-effect {
+  animation: magnetEffect 2s infinite;
+}
+
+/* Magnet Effect Keyframes */
+@keyframes magnetEffect {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Invincibility Power-up Effect */
+.invincibility-effect {
+  animation: invincibilityEffect 1s infinite;
+}
+
+/* Invincibility Effect Keyframes */
+@keyframes invincibilityEffect {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
 }
 
 /* Game Info Panel */
@@ -119,7 +164,7 @@
   }
 }
 
-
+/* Buttons Styling */
 .birdgame-buttons {
   position: fixed;
   bottom: 20px;
@@ -154,3 +199,20 @@
 .circle-button:hover {
   background-color: #388e3c;
 }
+
+/* Invincible Bird Character Styling */
+.birdcharacter.invincible {
+  animation: invincibilityEffect 1s infinite;
+  border: 3px solid gold;
+  box-shadow: 0 0 20px gold;
+}
+
+/* Power-up Specific Styling for Emojis */
+.emoji-potion {
+  animation: invincibilityEffect 2s infinite; /* Potion will activate invincibility */
+}
+
+.emoji-magnet {
+  animation: magnetEffect 2s infinite; /* Magnet will activate magnet effect */
+}
+

@@ -1,11 +1,12 @@
 /* Global Styles */
-
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 * {
   user-select: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
 
 /* Main Container */
 .start-container {
@@ -24,6 +25,7 @@
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  font-family: 'Orbitron', sans-serif;
 }
 
 /* Animation for container */
@@ -41,7 +43,7 @@
 /* Typewriter effect */
 .start-typewriter {
   font-size: 1.5rem;
-  font-family:'Orbitron';
+  font-family: 'Orbitron';
   font-weight: bold;
   margin-bottom: 30px;
   color: #ffffff;
@@ -84,14 +86,16 @@
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
   width: 250px;
-  height: 180px;
+  height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   text-align: center;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
 }
 
 /* Card Hover Effect */
@@ -102,29 +106,69 @@
 
 /* Card Active Effect */
 .start-active {
+  transform: scale(1.05);
   border: 5px solid #ffeb3b;
-  box-shadow: 0 0 15px 5px rgba(255, 235, 59, 0.7),
-    0 0 30px 10px rgba(255, 235, 59, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2),
+              0 0 15px 5px rgba(255, 235, 59, 0.7),
+              0 0 30px 10px rgba(255, 235, 59, 0.5);
+}
+
+/* Card Image */
+.start-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease-out;
+}
+
+/* Image Hover & Active Effect */
+.start-card:hover img,
+.start-active img {
+  transform: scale(1.1);
 }
 
 /* Card Title */
 .start-card h2 {
-  font-size: 1.5em;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: white;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+  padding: 0 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  font-family: 'Orbitron', sans-serif;
 }
+
+/* More specific selector to override Ant Design's default styles */
+.start-card .ant-card-meta .ant-card-meta-title {
+  color: #ffeb3b; /* Change to your desired color */
+  font-weight: 600;
+  font-size: 25px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
 
 /* Card Description */
 .start-card p {
-  margin: 0;
-  font-size: 50px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
   color: #ddd;
-  text-align: center;
-  line-height: 0.5;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
 }
 
 /* Responsive Design */
@@ -135,7 +179,7 @@
 
   .start-card {
     width: 220px;
-    height: 170px;
+    height: 280px;
   }
 }
 
@@ -145,7 +189,7 @@
   }
 
   .start-card {
-    width: 100%;
+    width: 90%;
     height: auto;
     margin: 0 auto;
   }
@@ -164,10 +208,16 @@
   .start-card {
     width: 100%;
     height: auto;
+    margin: 0 auto;
   }
 
   .cards-container {
     flex-direction: column;
     align-items: center;
+  }
+
+  .start-card h2 {
+    font-size: 1rem;
+    bottom: 60px;
   }
 }

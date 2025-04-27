@@ -8,34 +8,34 @@ const EndGamePage = () => {
 
   const sentRef = useRef(false);
 
-  useEffect(() => {
-    if (sentRef.current) return;
-    sentRef.current = true;
+  // useEffect(() => {
+  //   if (sentRef.current) return;
+  //   sentRef.current = true;
 
-    const sendScore = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/gamescore", {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            game_id: game,
-            score,
-            date: new Date().toISOString().split("T")[0],
-          }),
-        });
+  //   const sendScore = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:5000/api/gamescore", {
+  //         method: "POST",
+  //         credentials: "include",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           game_id: game,
+  //           score,
+  //           date: new Date().toISOString().split("T")[0],
+  //         }),
+  //       });
 
-        const result = await response.json();
-        console.log("✅ Score sent:", result);
-      } catch (err) {
-        console.error("❌ Error sending score:", err);
-      }
-    };
+  //       const result = await response.json();
+  //       console.log("✅ Score sent:", result);
+  //     } catch (err) {
+  //       console.error("❌ Error sending score:", err);
+  //     }
+  //   };
 
-    sendScore();
-  }, [game, score]);
+  //   sendScore();
+  // }, [game, score]);
 
   return (
     <div

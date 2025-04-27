@@ -1,40 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "antd";
 import { useNavigate } from "react-router-dom";
-// import {
-//   FireOutlined,
-//   RocketOutlined,
-//   FontSizeOutlined,
-//   CarOutlined,
-// } from "@ant-design/icons";
-import { ScatterBoxLoader } from "react-awesome-loaders";
-import Typewriter from "typewriter-effect";
-import "./Game.css"; // Updated CSS filename
+import "./Game.css";
 
 const games = [
   {
     title: "Ninja Hunt",
-    description: "🥷",
+    image: "/game_images/ninja.png",
     route: "/ninja-start",
   },
   {
     title: "Bird Thrust",
-    description: "🦅",
+    image: "/game_images/bird.png",
     route: "/bird-start",
   },
   {
     title: "Word Collect",
-    description: "🔠",
+    image: "/game_images/word.png",
     route: "/word-start",
   },
   {
     title: "Car Race",
-    description: "🏎️",
+    image: "/game_images/car.png",
     route: "/car-start",
   },
   {
     title: "Flight Shoot",
-    description: "✈️",
+    image: "/game_images/plane.png",
     route: "/plane-start",
   },
 ];
@@ -81,35 +73,39 @@ const Games = () => {
   if (isLoading) {
     return (
       <div className="start-loader-container">
-        <ScatterBoxLoader primaryColor={"#FF6347"} background={"#000"} />
+        <div className="loading-spinner"></div>
       </div>
     );
   }
 
   return (
     <div className="start-container">
-      {/* <div className="start-typewriter">
-        <Typewriter
-          onInit={(writer) => {
-            writer
-              .typeString("Click anywhere to start game selection!")
-              .pauseFor(1000)
-              .typeString("<br />Double-click to play the highlighted game")
-              .start();
-          }}
-        />
-      </div> */}
-
-      <Row gutter={[16, 16]} justify="center">
+      <Row gutter={[24, 24]} justify="center">
         {games.map((game, index) => (
-          <Col key={index} span={8}>
+          <Col
+            key={index}
+            xs={24}
+            sm={12}
+            md={8}
+            lg={6}
+            xl={5}
+          >
             <Card
+              hoverable
               className={`start-card ${activeIndex === index ? "start-active" : ""}`}
               onClick={() => navigateToGame()}
-              bordered={false}
+              cover={
+                <img
+                  alt={game.title}
+                  src={game.image}
+                  className="start-game-image"
+                />
+              }
             >
-              <h2>{game.icon} {game.title}</h2>
-              <p>{game.description}</p>
+              <Card.Meta
+                title={game.title}
+                className="game-title" // Applying the updated class name for title
+              />
             </Card>
           </Col>
         ))}

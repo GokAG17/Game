@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Instructions.css";
 
 const Instructions = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClick = () => {
+      navigate("/bird-game");
+    };
+
+    window.addEventListener("click", handleClick);
+
+    // Cleanup when component unmounts
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, [navigate]);
 
   return (
     <div className="instructions-container">
@@ -13,11 +26,10 @@ const Instructions = () => {
           🕹️ <strong>Single Click the Mouse</strong> to move the Bird{" "}
           <strong>UP</strong> and <strong>DOWN</strong>.
         </p>
-        <p> Catch the Items.</p>
-        <p>Match the Items with the correct Questions to score points!</p>
+        <p>Catch the Items.</p>
 
         <div className="button-group">
-          <button onClick={() => navigate("/bird-game")}>Play Now</button>
+          <button>Play Now</button> {/* Button is now optional, since global click works */}
         </div>
       </div>
     </div>

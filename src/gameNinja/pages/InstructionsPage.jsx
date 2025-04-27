@@ -1,7 +1,20 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const InstructionsPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      navigate("/ninja-game");
+    };
+
+    window.addEventListener("click", handleGlobalClick);
+
+    return () => {
+      window.removeEventListener("click", handleGlobalClick);
+    };
+  }, [navigate]);
 
   return (
     <div
@@ -49,7 +62,6 @@ const InstructionsPage = () => {
 
       {/* Play Button */}
       <button
-        onClick={() => navigate("/ninja-game")}
         style={{
           padding: "15px 30px",
           fontSize: "1.8rem",

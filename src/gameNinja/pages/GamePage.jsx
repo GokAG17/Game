@@ -185,6 +185,9 @@ const GamePage = () => {
         height: "100vh",
         backgroundImage: "url('/ninja_images/NinjaTheme.png')",
         backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed", // <--- important for locking the background
         overflow: "hidden",
       }}
     >

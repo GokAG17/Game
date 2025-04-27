@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SpriteAnimator } from "react-sprite-animator";
-import { UpOutlined, DownOutlined } from "@ant-design/icons"; // ✅ Antd Icons
+import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import "./Game.css";
 
 const yPositions = [150, 200, 250, 300, 350, 400, 450];
@@ -11,7 +11,6 @@ const Game = () => {
 
   const [characterX, setCharacterX] = useState(600);
   const [characterY, setCharacterY] = useState(yPositions[1]);
-  const [timer, setTimer] = useState(60);
   const [gameOver, setGameOver] = useState(false);
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState(0);
@@ -20,17 +19,10 @@ const Game = () => {
   const [obstacles, setObstacles] = useState([]);
   const [forceLoading, setForceLoading] = useState(true);
   const [emojiData, setEmojiData] = useState({});
-  const [fruitEmojis, setFruitEmojis] = useState([]);
+  const [fruitEmojis, setFruitEmojis] = useState(['🪙', '🪽']);
   const [activeButton, setActiveButton] = useState("up");
-
-  useEffect(() => {
-    fetch("/bird_images/questions.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setEmojiData(data);
-        setFruitEmojis(Object.keys(data));
-      });
-  }, []);
+  const [isInvincible, setIsInvincible] = useState(false);
+  const [invincibleTimer, setInvincibleTimer] = useState(0);
 
   const getClosestYPosition = (gapY) => {
     return yPositions.reduce((prev, curr) =>
@@ -71,19 +63,10 @@ const Game = () => {
   };
 
   useEffect(() => {
-    if (timer > 0) {
-      const countdown = setTimeout(() => setTimer((t) => t - 1), 1000);
-      return () => clearTimeout(countdown);
-    } else {
-      setGameOver(true);
-    }
-  }, [timer]);
-
-  useEffect(() => {
     if (gameOver) {
       setLoading(true);
       setTimeout(() => {
-        navigate("/bird-questions", { state: { score, collectedEmojis } });
+        navigate("/bird-end", { state: { score, collectedEmojis } });
       }, 2000);
     }
   }, [gameOver, navigate, score, collectedEmojis]);
@@ -92,7 +75,9 @@ const Game = () => {
     const interval = setInterval(() => {
       const { obstacles: newObs, emoji: newEmoji } = getFlappyObstaclePair();
       setObstacles((prev) => [...prev, ...newObs]);
-      setEmojiPositions((prev) => [...prev, newEmoji]);
+      if (Math.random() < 0.5) {
+        setEmojiPositions((prev) => [...prev, newEmoji]);
+      }
     }, 3000);
     return () => clearInterval(interval);
   }, [fruitEmojis]);
@@ -107,10 +92,15 @@ const Game = () => {
               Math.abs(characterX - newX) < 50 && characterY === emoji.y;
 
             if (isCollided) {
-              setScore((prev) => prev + 5);
-              setCollectedEmojis((prev) => [
-                ...new Set([...prev, emoji.emoji]),
-              ]);
+              if (emoji.emoji === "🪽") {
+                setIsInvincible(true);
+                setInvincibleTimer(15);
+              } else {
+                setScore((prev) => prev + 5);
+                setCollectedEmojis((prev) => [
+                  ...new Set([...prev, emoji.emoji]),
+                ]);
+              }
               return null;
             }
 
@@ -167,11 +157,29 @@ const Game = () => {
         characterBox.top < obsBox.bottom;
 
       if (collided) {
-        setGameOver(true);
+        if (!isInvincible) {
+          setGameOver(true);
+        }
         break;
       }
     }
-  }, [characterX, characterY, obstacles]);
+  }, [characterX, characterY, obstacles, isInvincible]);
+
+  useEffect(() => {
+    if (isInvincible) {
+      const invTimer = setInterval(() => {
+        setInvincibleTimer((prev) => {
+          if (prev <= 1) {
+            setIsInvincible(false);
+            clearInterval(invTimer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(invTimer);
+    }
+  }, [isInvincible]);
 
   useEffect(() => {
     setTimeout(() => setForceLoading(false), 3000);
@@ -206,7 +214,7 @@ const Game = () => {
   if (loading || forceLoading) {
     return (
       <div className="loading-container">
-        <div class="loading-spinner"></div>
+        <div className="loading-spinner"></div>
       </div>
     );
   }
@@ -216,7 +224,13 @@ const Game = () => {
       <div className="birdgame-area">
         <div
           className="birdcharacter"
-          style={{ left: characterX, top: characterY }}
+          style={{
+            left: characterX,
+            top: characterY,
+            border: isInvincible ? "3px solid gold" : "none",
+            borderRadius: "10px",
+            boxShadow: isInvincible ? "0 0 20px gold" : "none",
+          }}
         >
           <SpriteAnimator
             sprite="/bird_images/BirdFly.png"
@@ -257,8 +271,8 @@ const Game = () => {
       </div>
 
       <div className="birdgame-info">
-        <p>Time Left: {timer}s</p>
         <p>Score: {score}</p>
+        {isInvincible && <p>Invincible: {invincibleTimer}s</p>}
       </div>
 
       <div className="birdgame-buttons">
