@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SpriteAnimator } from "react-sprite-animator";
+import SpriteAnimator from "../components/SpriteAnimator";
 
 class Plane extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class Plane extends Component {
           sprite={sprite}
           width={443}
           height={302}
-          frameCount={6}
+          frameCount={2}
           fps={10}
           scale={2}
         />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SpriteAnimator } from "react-sprite-animator";
+import SpriteAnimator from "../../components/SpriteAnimator";
 
 const Zombie = ({ zombieHealth, position, targetPosition, isDead }) => {
   const [zombiePosition, setZombiePosition] = useState(position);

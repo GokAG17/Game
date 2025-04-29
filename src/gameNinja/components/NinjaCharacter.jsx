@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SpriteAnimator } from "react-sprite-animator";
+import SpriteAnimator from "../../components/SpriteAnimator";
 
 const NinjaCharacter = ({ setNinjaHealth, ninjaHealth, addKunai }) => {
   const [action, setAction] = useState("idle");

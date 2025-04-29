@@ -139,19 +139,12 @@ const Game = () => {
     });
   }, [enemies, planeX, planeY, navigate, score]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBgPositionX((prev) => (prev - 0.3) % 100);
-    }, 60);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div
       ref={gameRef}
       className="flightgame"
       style={{
-        backgroundPositionX: `${bgPositionX}%`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}

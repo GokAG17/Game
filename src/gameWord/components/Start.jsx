@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Start.css";
 
 const Start = () => {
@@ -22,14 +22,30 @@ const Start = () => {
   //     audio.pause();
   //   };
   // }, [audio]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      navigate("/word-game");
+    };
+
+    document.addEventListener("click", handleGlobalClick);
+    return () => {
+      document.removeEventListener("click", handleGlobalClick);
+    };
+  }, [navigate]);
 
   return (
     <div className="wordstart-page">
       <div className="wordstart-content">
         <h1 className="wordstart-title">Word Puzzle Game!</h1>
-        <Link to="/word-game">
-          <button className="wordstart-button">Start Game</button>
-        </Link>
+
+        <button
+          className="wordstart-button"
+          onClick={() => navigate("/word-game")}
+        >
+          Start Game
+        </button>
       </div>
     </div>
   );

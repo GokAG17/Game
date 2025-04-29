@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { SpriteAnimator } from "react-sprite-animator";
+import SpriteAnimator from "../../components/SpriteAnimator";
 import "./Questions.css";
 
 const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);

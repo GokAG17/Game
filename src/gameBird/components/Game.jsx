@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SpriteAnimator } from "react-sprite-animator";
+import SpriteAnimator from "../../components/SpriteAnimator";
 import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import "./Game.css";
 
@@ -19,7 +19,7 @@ const Game = () => {
   const [obstacles, setObstacles] = useState([]);
   const [forceLoading, setForceLoading] = useState(true);
   const [emojiData, setEmojiData] = useState({});
-  const [fruitEmojis, setFruitEmojis] = useState(['🪙', '🪽']);
+  const [fruitEmojis, setFruitEmojis] = useState(["🪙", "🪽"]);
   const [activeButton, setActiveButton] = useState("up");
   const [isInvincible, setIsInvincible] = useState(false);
   const [invincibleTimer, setInvincibleTimer] = useState(0);

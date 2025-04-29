@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SpriteAnimator } from "react-sprite-animator";
+import SpriteAnimator from "../../components/SpriteAnimator";
 import "./Player.css";
 
 const MOVEMENT_SPEED = 5;

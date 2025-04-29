@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Typewriter from "typewriter-effect";
 import "./Home.css";
 
 const Home = () => {
@@ -12,16 +11,9 @@ const Home = () => {
     <div className="homec-container" onClick={handleDoubleClick}>
       <div className="homec-content">
         <h1>Drive UP</h1>
-        <div className="typewriter1-container">
-          <Typewriter
-            onInit={(writer) => {
-              writer
-                .typeString("Fasten your seatbelt !")
-                .pauseFor(1000)
-                .typeString("<br />Click to start the race")
-                .start();
-            }}
-          />
+        <div className="message-container">
+          <p>Fasten your seatbelt !</p>
+          <p>Click to start the race</p>
         </div>
         <Link to="/car-game">
           <button id="start-button" className="startc-button">
