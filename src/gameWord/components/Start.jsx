@@ -3,25 +3,25 @@ import { useNavigate } from "react-router-dom";
 import "./Start.css";
 
 const Start = () => {
-  // const [audio] = useState(new Audio("/background-music.mp3"));
+  const [audio] = useState(new Audio("/background-music.mp3"));
 
-  // useEffect(() => {
-  //   const playAudio = () => {
-  //     audio.loop = true;
-  //     audio.play().catch(() => {
-  //       console.log("Autoplay blocked, waiting for user interaction.");
-  //     });
-  //   };
+  useEffect(() => {
+    const playAudio = () => {
+      audio.loop = true;
+      audio.play().catch(() => {
+        console.log("Autoplay blocked, waiting for user interaction.");
+      });
+    };
 
-  //   playAudio();
+    playAudio();
 
-  //   document.addEventListener("click", playAudio, { once: true });
+    document.addEventListener("click", playAudio, { once: true });
 
-  //   return () => {
-  //     document.removeEventListener("click", playAudio);
-  //     audio.pause();
-  //   };
-  // }, [audio]);
+    return () => {
+      document.removeEventListener("click", playAudio);
+      audio.pause();
+    };
+  }, [audio]);
   const navigate = useNavigate();
 
   useEffect(() => {

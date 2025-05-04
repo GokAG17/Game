@@ -4,8 +4,8 @@ import Player from "./Player";
 import Letter from "./Letter";
 import "./Game.css";
 
-// const walkingSound = new Audio("/walking-sound.mp3");
-// const backgroundMusic = new Audio("/background-music.mp3");
+const walkingSound = new Audio("/walking-sound.mp3");
+const backgroundMusic = new Audio("/background-music.mp3");
 
 const Game = () => {
   const [words, setData] = useState(["BANANA"]);
@@ -45,8 +45,8 @@ const Game = () => {
   const TOTAL_WORDS_TO_PLAY = words.length;
 
   const getShuffledPositions = (totalLetters) => {
-    const minX = 1000;
-    const maxX = 4500;
+    const minX = 100;
+    const maxX = 1500;
     const spacing = (maxX - minX) / totalLetters;
 
     const positions = Array.from({ length: totalLetters }, (_, index) => ({
@@ -80,20 +80,20 @@ const Game = () => {
     }
   }, [words, wordIndex]);
 
-  // useEffect(() => {
-  //   const handleUserInteraction = () => {
-  //     setIsAudioAllowed(true);
-  //     backgroundMusic.loop = true;
-  //     backgroundMusic.play();
-  //   };
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      setIsAudioAllowed(true);
+      backgroundMusic.loop = true;
+      backgroundMusic.play();
+    };
 
-  //   window.addEventListener("click", handleUserInteraction);
-  //   window.addEventListener("keydown", handleUserInteraction);
-  //   return () => {
-  //     window.removeEventListener("click", handleUserInteraction);
-  //     window.removeEventListener("keydown", handleUserInteraction);
-  //   };
-  // }, []);
+    window.addEventListener("click", handleUserInteraction);
+    window.addEventListener("keydown", handleUserInteraction);
+    return () => {
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("keydown", handleUserInteraction);
+    };
+  }, []);
 
   useEffect(() => {
     const letterPositions = getShuffledPositions(currentWord.length);
@@ -115,7 +115,7 @@ const Game = () => {
                 ...letterObj,
                 position: {
                   x: letterObj.position.x,
-                  y: Math.min(letterObj.position.y + 10, 1400),
+                  y: Math.min(letterObj.position.y + 10, 400),
                 },
               }
         )
@@ -144,7 +144,7 @@ const Game = () => {
   const collectLetter = () => {
     const foundLetterIndex = letters.findIndex(
       (letterObj) =>
-        letterObj.position.y >= 1350 &&
+        letterObj.position.y >= 400 &&
         Math.abs(letterObj.position.x - playerPosition) < 50
     );
 
@@ -161,7 +161,7 @@ const Game = () => {
     if (collectedStack.length > 0) {
       const poppedLetter = collectedStack[collectedStack.length - 1];
       setCollectedStack((prevStack) => prevStack.slice(0, -1));
-      const newPosition = { x: playerPosition, y: 1400 };
+      const newPosition = { x: playerPosition, y: 400 };
 
       setLetters((prevLetters) => [
         ...prevLetters,
@@ -219,7 +219,7 @@ const Game = () => {
     const collidedLetter = letters.find(
       (letterObj) =>
         Math.abs(letterObj.position.x - playerPosition) < 50 &&
-        letterObj.position.y >= 1350
+        letterObj.position.y >= 400
     );
 
     if (collidedLetter) {
@@ -252,11 +252,11 @@ const Game = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (playerPosition !== 800 && isAudioAllowed) {
-  //     walkingSound.play();
-  //   }
-  // }, [playerPosition, isAudioAllowed]);
+  useEffect(() => {
+    if (playerPosition !== 800 && isAudioAllowed) {
+      walkingSound.play();
+    }
+  }, [playerPosition, isAudioAllowed]);
 
   const handleGlobalClick = () => {
     const keyDownEvent = new KeyboardEvent("keydown", { key: "e" });

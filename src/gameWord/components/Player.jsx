@@ -4,14 +4,14 @@ import "./Player.css";
 
 const MOVEMENT_SPEED = 5;
 const LEFT_BOUNDARY = 50;
-const RIGHT_BOUNDARY = 3800;
+const RIGHT_BOUNDARY = 1400;
 
 class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
       avatarDirection: "right",
-      position: { x: 50, y: 1200 },
+      position: { x: 0, y: 300 },
     };
     this.movementInterval = null;
   }
@@ -69,7 +69,7 @@ class Player extends Component {
     const { x, y } = this.state.position;
     const spritePath = this.props.sprite || "spritesheet.png";
     const spriteConfig = {
-      "spritesheet.png": { width: 414, height: 454, scale: 1, fps: 40 },
+      "spritesheet.png": { width: 414, height: 454, scale: 2, fps: 40 },
       "Ninja-Jump.png": { width: 524, height: 565, scale: 1, fps: 20 },
       "spritesheetcat.png": { width: 499, height: 348, scale: 1, fps: 10 },
     };
